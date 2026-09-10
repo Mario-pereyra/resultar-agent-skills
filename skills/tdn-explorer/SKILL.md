@@ -1,73 +1,62 @@
 ---
 name: tdn-explorer
-description: Search TOTVS Developer Network (TDN) and extract its pages as markdown — find docs with CQL, read a page, walk its page tree, download attachments (.prw source, .ch headers, screenshots), list recent changes. Use for ADVPL, TLPP, Protheus, MVC (FWFormModel, FWExecView), Pontos de Entrada, Logix, RM or Fluig.
+description: Search TOTVS Developer Network (TDN) and read its pages as sourced markdown with their last-edited date. Find docs with CQL, read a page, walk its tree, download attachments, list recent changes. Use for ADVPL, TLPP, Protheus, MVC, Pontos de Entrada, Logix, RM and Fluig questions.
 ---
 
 # TDN Explorer
 
-Consulta `https://tdn.totvs.com` y devuelve markdown con la fecha de última edición a la vista.
+Consulta `tdn.totvs.com` y devuelve markdown con la fecha de última edición a la vista. El núcleo técnico —ADVPL, TLPP, MVC, Puntos de Entrada— es público: funciona sin credenciales.
 
-**Funciona sin credenciales.** El núcleo técnico —ADVPL, TLPP, MVC, Puntos de Entrada— es público.
+## Invocación
 
-## Instalar
-
-```bash
-npx skills add Mario-pereyra/resultar-agent-skills --skill tdn-explorer
-```
-
-Listo: la herramienta viene incluida y solo necesita Node 18+, que ya tenés si usás
-Claude Code, Cursor o cualquier agente de codificación.
-
-## Ejecutar
-
-Resuelve `<skill-root>` al directorio de este `SKILL.md`.
+Resolvé `<skill-root>` al directorio de este `SKILL.md`:
 
 ```bash
 node <skill-root>/tdn.mjs <comando> [args]
 ```
 
-Sin argumentos imprime la ayuda con todos los flags. No necesita instalar nada más:
-es un solo archivo sin dependencias. Los ejemplos de esta guía lo abrevian como `tdn`.
+Sin argumentos imprime la ayuda. El resto de esta guía abrevia esa invocación como `tdn`.
 
-## Flujo: `search` → id → `get`
+Si `tdn.mjs` falta o `node -v` falla, la skill todavía no está instalada: las instrucciones están en el README del repositorio.
+
+## Flujo: `search` → `get` → citar
 
 ```bash
-node <skill-root>/tdn.mjs search "DBSeek" -s tec        # 1. encuentra el id
-node <skill-root>/tdn.mjs get 6063453                   # 2. lee la página
-node <skill-root>/tdn.mjs where 6063453                 # 3. si hace falta, mira qué hay alrededor
+tdn search "DBSeek" -s tec     # 1. buscá; devuelve candidatos con su id
+tdn get 6063453                # 2. leé la página por id o URL
+tdn where 6063453              # 3. si necesitás contexto: camino, hermanos, hijos
 ```
 
-`get` acepta un id o una URL. Con texto libre devuelve candidatos para que elijas.
+`get` con texto libre en vez de id devuelve candidatos para que elijas.
 
-**Terminás cuando cada afirmación tiene su id de TDN y su fecha.** Una respuesta sobre ADVPL sin el id que la respalda es una respuesta sin fuente.
+**Terminás cuando cada afirmación que vas a dar tiene su id, su fecha y su vigencia contrastada contra la versión del cliente.** Lo que no llegó a tener id, va marcado como no verificado.
+
+La fecha es la **vigencia**: `⚠8a` son ocho años sin cambios. Así se ve en la salida, y así se cita:
+
+```
+1. 6063453  [tec]  DBSeek  (v3 2017-10-20 ⚠8a)
+```
 
 ## Comandos
 
-| Comando | Para qué |
+| Comando | Qué hace |
 |---|---|
-| `search <cql\|texto>` | Buscar. Acepta CQL crudo; el texto suelto se busca como frase |
-| `get <id\|url\|texto>` | Leer una página como markdown con su encabezado de versión |
-| `where <id>` | Dónde está: camino desde la raíz, hermanos e hijos |
-| `tree <id>` | Recorrer un subárbol. Sondea y avisa antes de empezar |
-| `files <id>` · `files --ext .prw` | Adjuntos de una página, o búsqueda por extensión |
-| `fetch <id>` · `fetch --ext .prw` | Bajar esos adjuntos a disco con `--out <dir>` |
+| `search <cql\|texto>` | Busca; el texto suelto se busca como frase |
+| `get <id\|url\|texto>` | Una página como markdown, con su encabezado de versión |
+| `where <id>` | Camino desde la raíz, hermanos e hijos |
+| `tree <id>` | Recorre un subárbol, avisando antes de empezar |
+| `files <id>` · `files --ext .prw` | Adjuntos de una página, o por extensión |
+| `fetch <id>` · `fetch --ext .prw` | Baja adjuntos a disco (`--out <dir>`) |
 | `recent <space>` | Lo modificado últimamente en un espacio |
 | `spaces` | Los espacios disponibles con su clave |
-| `verify <id\|url>` | Auditar la fidelidad entre la página original y el markdown |
-| `tools` | Exportar esquemas JSON de las herramientas para agentes IA / MCP |
+| `verify <id\|url>` | Audita la fidelidad entre la página y el markdown |
+| `tools` | Esquemas JSON de las herramientas, para agentes IA / MCP |
 
-## Acertar con la consulta
+Flags: `--limit` en todos, `--max-requests` para acotar el costo, `--anon` para una invocación sin token.
 
-Dos cosas deciden si una búsqueda encuentra algo. Las dos fallan en silencio.
+## El espacio decide la búsqueda
 
-### El espacio
-
-Es el error que más tiempo cuesta. La misma consulta, distinto espacio:
-
-```bash
-space=tec       AND text~"FWFormModel"   →  0 resultados
-space=framework AND text~"FWFormModel"   → 16 resultados
-```
+Es el error que más tiempo cuesta, porque falla en silencio: `text~"FWFormModel"` en `tec` da 0 resultados y en `framework` da 16.
 
 | Buscás | Espacio |
 |---|---|
@@ -78,81 +67,39 @@ space=framework AND text~"FWFormModel"   → 16 resultados
 | Logix | `LLOG` |
 | RM | `LRM` |
 
-Claves, volúmenes y prefijos de rutina: [`references/spaces-catalog.md`](references/spaces-catalog.md).
+Un espacio equivocado devuelve una lista vacía. Ante cero resultados, cambiá de espacio antes de cambiar la consulta.
 
-### El escapado de las frases
+## Los adjuntos son la mitad del contenido
 
-```bash
-space=PROT AND text~"\"Ponto de Entrada\"" AND text~"MATA410"   # la frase
-space=PROT AND text~"Ponto de Entrada" AND text~"MATA410"       # tres palabras sueltas
-```
-
-Escapá las comillas internas siempre que busques una frase.
-
-### Recetas
+El código de ejemplo y los headers con los `#define` reales viven en los adjuntos, no en el cuerpo de las páginas.
 
 ```bash
-node <skill-root>/tdn.mjs search 'space=tec AND text~"DBSeek"'                   # función del lenguaje
-node <skill-root>/tdn.mjs search 'space=framework AND text~"FWFormModel"'        # clase MVC
-node <skill-root>/tdn.mjs search 'space=PROT AND title~"MATA*"'                  # rutinas por prefijo
-node <skill-root>/tdn.mjs search 'label="advpl" AND space=tec'                   # por etiqueta
-node <skill-root>/tdn.mjs search 'type=attachment AND title~"*.prw"'             # código de ejemplo
-node <skill-root>/tdn.mjs search 'ancestor=334340072'                            # tamaño de una rama
-node <skill-root>/tdn.mjs recent tec --days 7                                    # cambios recientes
+tdn files 758510608                    # qué hay, con su tamaño
+tdn fetch 758510608 --out ./adjuntos   # bajalo
 ```
 
-Campos, operadores y ejemplos: [`references/cql-syntax.md`](references/cql-syntax.md).
+`fetch` guarda los bytes tal cual. **Los fuentes de Protheus vienen en cp1252**, y la herramienta lo señala: leerlos como UTF-8 destroza los acentos. Si un adjunto falla, la herramienta lo declara y sigue con el resto del lote.
 
-## Los adjuntos son la mitad del contenido técnico
+## Con `TDN_PAT`
 
-Buena parte de lo que buscás vive en los adjuntos y no en el cuerpo de las páginas — sobre todo el código de ejemplo y los headers con los `#define` reales.
+El token va en el entorno y la herramienta lo usa sola:
 
 ```bash
-node <skill-root>/tdn.mjs files 758510608                          # qué hay, con su tamaño
-node <skill-root>/tdn.mjs fetch 758510608 --out ./adjuntos         # bajalo
-node <skill-root>/tdn.mjs fetch --ext .prw --space PROT --out ./ejemplos
+export TDN_PAT='<token>'     # bash/zsh
+$env:TDN_PAT = '<token>'     # PowerShell
 ```
 
-`fetch` guarda los bytes tal cual y avisa si el tamaño no cuadra con el que declara TDN. **Los fuentes de Protheus vienen en cp1252**, así que la herramienta lo señala: leerlos como UTF-8 destroza los acentos. Si el nombre ya existe en el destino lo renombra, y un adjunto que el servidor no sirve queda declarado sin cancelar el resto del lote.
-
-## Vigencia: cítala con la respuesta
-
-Cada página y cada resultado traen su versión y su última edición. `⚠8a` son ocho años sin cambios:
-
-```
-1. 6063453  [tec]  DBSeek  (v3 2017-10-20 ⚠8a)
-```
-
-Contrastá contra la versión de Protheus del cliente antes de dar por vigente una página marcada.
-
-## Modo anónimo y modo autenticado
-
-Exportá el token y la herramienta lo usa sola:
-
-```bash
-export TDN_PAT='<token>'          # bash/zsh
-$env:TDN_PAT = '<token>'          # PowerShell
-```
-
-Con `TDN_PAT` hay bastante más contenido disponible: más espacios visibles y más código de ejemplo. `--anon` lo ignora para una invocación.
-
-**Con PAT los resultados dejan de ser reproducibles entre personas:** cada cuenta ve lo que sus permisos le permiten. Antes de pasarle un id a alguien, comprobá con `tdn get <id> --anon` que podrá abrirlo.
+Agrega sobre todo código de ejemplo descargable. **Con token, los resultados dejan de ser reproducibles entre personas:** cada cuenta ve lo que sus permisos permiten. Antes de pasarle un id a alguien, comprobá con `tdn get <id> --anon` que podrá abrirlo.
 
 ## Cuando algo falla
 
-Cada error trae en su mensaje la salida concreta y qué hacer. Los más comunes:
+Cada error trae en su mensaje la salida concreta y qué hacer. Al alcanzar cualquier tope la herramienta **aborta y declara qué quedó fuera**, para que un resultado incompleto se note: subilo con `--max-requests` o acotá la consulta.
 
-| Situación | Qué significa |
-|---|---|
-| La página no existe | Se confirma con una segunda petición antes de responder |
-| La página requiere permisos | Existe, pero tu cuenta no la ve |
-| Se alcanzó el tope de peticiones | Subilo con `--max-requests` |
+## A fondo
 
-Al alcanzar cualquier tope la herramienta **aborta y declara qué quedó fuera**, para que un resultado incompleto se note.
+Cada archivo se abre por una rama distinta:
 
-## Más a fondo
-
-- [`references/spaces-catalog.md`](references/spaces-catalog.md) — qué hay en cada espacio y cómo se llaman las rutinas.
-- [`references/cql-syntax.md`](references/cql-syntax.md) — sintaxis de búsqueda, operadores, frases y campos.
-- [`references/recetas-protheus.md`](references/recetas-protheus.md) — recetas listas para Puntos de Entrada, funciones y fuentes de Protheus.
-- [`references/busqueda-privada.md`](references/busqueda-privada.md) — qué cambia al usar `TDN_PAT` y cómo verificar que un resultado es público.
+- [`references/cql-syntax.md`](references/cql-syntax.md) — al escribir una consulta: campos, operadores, frases, tipos y filtros que se ignoran en silencio.
+- [`references/spaces-catalog.md`](references/spaces-catalog.md) — al elegir espacio o al buscar por rutina: prefijos por módulo, Puntos de Entrada, espacios vacíos en anónimo.
+- [`references/recetas-protheus.md`](references/recetas-protheus.md) — cuando ya sabés qué buscás y querés la consulta armada: PEs de una rutina, firmas de funciones, Help del sistema, fuentes.
+- [`references/busqueda-privada.md`](references/busqueda-privada.md) — al usar `TDN_PAT`: qué agrega y cómo verificar que un id es público.

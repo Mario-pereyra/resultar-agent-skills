@@ -1,5 +1,7 @@
 # Búsqueda autenticada con `TDN_PAT`
 
+`tdn` es `node <skill-root>/tdn.mjs`, con `<skill-root>` el directorio del `SKILL.md`.
+
 ## Para qué sirve
 
 El núcleo técnico de TDN —ADVPL, TLPP, MVC, Puntos de Entrada— es público y se consulta sin credenciales. El token agrega sobre todo **código de ejemplo**: bastantes más fuentes `.prw` descargables.
@@ -18,7 +20,7 @@ $env:TDN_PAT = '<token>'          # PowerShell
 Para una invocación puntual en modo anónimo, ignorando el token:
 
 ```bash
-node <skill-root>/tdn.mjs get 6063453 --anon
+tdn get 6063453 --anon
 ```
 
 ## Antes de compartir un id
@@ -28,7 +30,7 @@ node <skill-root>/tdn.mjs get 6063453 --anon
 Comprobalo antes de pasarlo:
 
 ```bash
-node <skill-root>/tdn.mjs get <id> --anon
+tdn get <id> --anon
 ```
 
 Si responde en anónimo, cualquiera podrá abrirlo.

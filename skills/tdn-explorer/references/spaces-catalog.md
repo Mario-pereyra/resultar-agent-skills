@@ -1,5 +1,7 @@
 # Espacios de TDN
 
+`tdn` es `node <skill-root>/tdn.mjs`, con `<skill-root>` el directorio del `SKILL.md`.
+
 La clave del espacio nunca se deduce del nombre: `LR` y `LRM` se llaman los dos "Linha RM", y `PROT` y `mp` difieren en un punto final. Un filtro por nombre devuelve el espacio equivocado.
 
 Para la lista viva usá `tdn spaces`.
@@ -48,7 +50,7 @@ Los nombres de rutina de Protheus llevan un prefijo por módulo. Buscar por tít
 | `FATA` | Facturación |
 
 ```bash
-node <skill-root>/tdn.mjs search 'space=PROT AND title~"MATA410*"'
+tdn search 'space=PROT AND title~"MATA410*"'
 ```
 
 ## Puntos de Entrada
@@ -56,7 +58,7 @@ node <skill-root>/tdn.mjs search 'space=PROT AND title~"MATA410*"'
 Viven en `PROT`. Es la vía más rápida para encontrar la documentación de un PE:
 
 ```bash
-node <skill-root>/tdn.mjs search 'space=PROT AND title~"Ponto de Entrada" AND title~"MATA410"'
+tdn search 'space=PROT AND title~"Ponto de Entrada" AND title~"MATA410"'
 ```
 
 ## Con credenciales
