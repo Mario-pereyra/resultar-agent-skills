@@ -1,0 +1,23 @@
+{
+  "name": "resultar-agent-skills",
+  "owner": {
+    "name": "Mario Alberto Pereyra J."
+  },
+  "metadata": {
+    "description": "Skills de Resultar para agentes de codificacion: documentacion de TOTVS Protheus, ADVPL y TLPP.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "tdn-explorer",
+      "source": "./",
+      "description": "Busca en el TOTVS Developer Network y lee sus paginas como markdown con la fecha de ultima edicion a la vista.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Mario Alberto Pereyra J."
+      },
+      "keywords": ["totvs", "protheus", "advpl", "tlpp", "tdn", "documentacion"],
+      "category": "development"
+    }
+  ]
+}

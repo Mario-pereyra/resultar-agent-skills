@@ -1,0 +1,8 @@
+{
+  "name": "tdn-explorer",
+  "description": "Search TOTVS Developer Network (TDN) and read its pages as sourced markdown with their last-edited date. Find docs with CQL, read a page, walk its tree, download attachments, list recent changes. Use for ADVPL, TLPP, Protheus, MVC, Pontos de Entrada, Logix, RM and Fluig questions.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Mario Alberto Pereyra J."
+  }
+}

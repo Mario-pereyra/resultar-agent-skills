@@ -8,6 +8,17 @@ Este repositorio es el **canal de distribución** de las herramientas: contiene 
 
 ## Instalación
 
+### Claude Code — como plugin
+
+```bash
+claude plugin marketplace add Mario-pereyra/resultar-agent-skills
+claude plugin install tdn-explorer@resultar-agent-skills
+```
+
+Dentro de una sesión funcionan los mismos comandos: `/plugin marketplace add Mario-pereyra/resultar-agent-skills` y luego `/plugin install tdn-explorer`.
+
+### Cualquier agente — con `npx skills`
+
 ```bash
 # Una skill concreta
 npx skills add Mario-pereyra/resultar-agent-skills --skill tdn-explorer
@@ -52,6 +63,7 @@ Documentación de uso: [`skills/tdn-explorer/SKILL.md`](skills/tdn-explorer/SKIL
 
 ```text
 resultar-agent-skills/
+├── .claude-plugin/           · plugin.json + marketplace.json
 ├── LICENSE.md
 ├── README.md
 └── skills/
