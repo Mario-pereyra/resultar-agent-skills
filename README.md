@@ -8,74 +8,49 @@ Este repositorio es el **canal de distribución** de las herramientas: contiene 
 
 ## Instalación
 
-Este repositorio cumple el estándar **[Agent Plugins 1.0](https://agent-plugins.org)**: un solo `plugin.json` en la raíz y los skills en `skills/`. Los clientes que soportan el estándar lo cargan sin cambios.
+Dos caminos, uno por familia de agentes.
 
 | Agente | Vía | Estado |
 |---|---|---|
-| Claude Code | marketplace de plugins | Verificado |
-| Codex | marketplace de plugins | Verificado por código fuente |
-| Cursor | Agent Plugins nativo | Verificado por documentación oficial |
-| VS Code / GitHub Copilot | `chat.plugins.marketplaces` | Verificado por documentación oficial |
-| Cualquier otro | `npx skills` | Verificado |
+| Claude Code | plugin nativo | **Verificado** |
+| Codex, Cursor, Copilot y el resto | `npx skills` | **Verificado** |
 
-### Claude Code
+### Claude Code — plugin nativo
 
 ```bash
 claude plugin marketplace add Mario-pereyra/resultar-agent-skills
 claude plugin install tdn-explorer@resultar-agent-skills
 ```
 
-Dentro de una sesión funcionan los mismos comandos: `/plugin marketplace add Mario-pereyra/resultar-agent-skills` y luego `/plugin install tdn-explorer`.
+Dentro de una sesión: `/plugin marketplace add Mario-pereyra/resultar-agent-skills` y luego `/plugin install tdn-explorer`.
 
-### Codex
-
-```bash
-codex plugin marketplace add Mario-pereyra/resultar-agent-skills
-codex plugin add tdn-explorer@resultar-agent-skills
-```
-
-El selector acepta las dos formas: `tdn-explorer@resultar-agent-skills` o `tdn-explorer --marketplace resultar-agent-skills`.
-
-### Cursor
-
-Cursor soporta Agent Plugins de forma nativa, así que este repositorio carga como plugin sin cambios. Para probarlo localmente:
-
-```bash
-ln -s /ruta/a/resultar-agent-skills ~/.cursor/plugins/local/tdn-explorer
-```
-
-Reiniciá Cursor y confirmá en **Customize** que aparece el skill. Para distribuirlo al equipo, importá el repositorio en **Dashboard → Plugins → Team Marketplaces → Add Marketplace**, que admite formatos Agent Plugins y Cursor Plugins en el mismo marketplace.
-
-### VS Code / GitHub Copilot
-
-Agregá el marketplace a tu `settings.json`:
-
-```json
-"chat.plugins.marketplaces": [
-    "Mario-pereyra/resultar-agent-skills"
-]
-```
-
-Después buscá `@agentPlugins` en la vista de Extensiones e instalá. Los plugins están en preview: verificá que `chat.plugins.enabled` esté activo.
-
-### Cualquier agente — con `npx skills`
+### Codex, Cursor, GitHub Copilot — con `npx skills`
 
 ```bash
 # Una skill concreta
 npx skills add Mario-pereyra/resultar-agent-skills --skill tdn-explorer
 
+# Elegir agentes y skills interactivamente
+npx skills@latest add Mario-pereyra/resultar-agent-skills
+
 # Listar las disponibles sin instalar
 npx skills add Mario-pereyra/resultar-agent-skills --list
-
-# Instalar todas
-npx skills add Mario-pereyra/resultar-agent-skills --all
 ```
 
-Por defecto se instalan en el proyecto —`.claude/skills/`, `.cursor/skills/` y equivalentes—. Con `-g` se instalan para todo el usuario.
+El instalador coloca los archivos donde cada agente los lee:
+
+| Agente | Proyecto | Global |
+|---|---|---|
+| Codex | `.agents/skills/` | `~/.codex/skills/` |
+| Cursor | `.agents/skills/` | `~/.cursor/skills/` |
+| GitHub Copilot | `.agents/skills/` | `~/.copilot/skills/` |
+| Claude Code | `.claude/skills/` | `~/.claude/skills/` |
+
+Con `-g` se instala para todo el usuario en vez del proyecto.
 
 ### Requisitos
 
-- **Node 18+** — ya lo tenés si usás Claude Code, Cursor o cualquier agente de codificación
+- **Node 18+** — ya lo tenés si usás cualquiera de estos agentes
 - Sin dependencias ni instalación adicional: cada herramienta es un archivo
 
 Funciona igual en **Linux**, **Windows** y **macOS**.
@@ -104,7 +79,6 @@ Documentación de uso: [`skills/tdn-explorer/SKILL.md`](skills/tdn-explorer/SKIL
 
 ```text
 resultar-agent-skills/
-├── plugin.json               · manifiesto Agent Plugins 1.0
 ├── .claude-plugin/           · marketplace.json + plugin.json
 ├── LICENSE.md
 ├── README.md
