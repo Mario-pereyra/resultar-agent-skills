@@ -17,6 +17,15 @@ claude plugin install tdn-explorer@resultar-agent-skills
 
 Dentro de una sesión funcionan los mismos comandos: `/plugin marketplace add Mario-pereyra/resultar-agent-skills` y luego `/plugin install tdn-explorer`.
 
+### Codex — como plugin
+
+```bash
+codex plugin marketplace add Mario-pereyra/resultar-agent-skills
+codex plugin add tdn-explorer@resultar-agent-skills
+```
+
+El selector acepta las dos formas: `tdn-explorer@resultar-agent-skills` o `tdn-explorer --marketplace resultar-agent-skills`.
+
 ### Cualquier agente — con `npx skills`
 
 ```bash
