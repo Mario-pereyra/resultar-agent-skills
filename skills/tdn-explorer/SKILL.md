@@ -28,6 +28,13 @@ Resuelve `<skill-root>` al directorio de este `SKILL.md`.
 
 Sin argumentos imprime la ayuda con todos los flags.
 
+El binario avisa una vez por corrida que usa una función experimental de Node. Es
+ruido, no un problema: silencialo con `NODE_NO_WARNINGS=1` si te molesta en la salida.
+
+```bash
+NODE_NO_WARNINGS=1 <skill-root>/bin/tdn spaces
+```
+
 ## Flujo: `search` → id → `get`
 
 ```bash
