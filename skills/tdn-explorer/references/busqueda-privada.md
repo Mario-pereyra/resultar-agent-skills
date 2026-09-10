@@ -6,7 +6,7 @@
 
 El núcleo técnico de TDN —ADVPL, TLPP, MVC, Puntos de Entrada— es público y se consulta sin credenciales. El token agrega sobre todo **código de ejemplo**: bastantes más fuentes `.prw` descargables.
 
-Si buscás documentación de funciones, clases o rutinas, no lo necesitás.
+Si buscás documentación de funciones, clases o rutinas, no lo necesitas.
 
 ## Cómo se configura
 
@@ -25,7 +25,7 @@ tdn get 6063453 --anon
 
 ## Antes de compartir un id
 
-**Con token, los resultados dejan de ser reproducibles entre personas:** cada cuenta ve lo que sus permisos le permiten. Un id que vos abrís puede no existir para tu compañero.
+**Con token, los resultados dejan de ser reproducibles entre personas:** cada cuenta ve lo que sus permisos le permiten. Un id que una persona abre puede no existir para otra.
 
 Comprobalo antes de pasarlo:
 

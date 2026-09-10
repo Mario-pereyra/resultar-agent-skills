@@ -50,7 +50,7 @@ Con `-g` se instala para todo el usuario en vez del proyecto.
 
 ### Requisitos
 
-- **Node 18+** — ya lo tenés si usás cualquiera de estos agentes
+- **Node 18+** — ya está instalado si usas cualquiera de estos agentes
 - Sin dependencias ni instalación adicional: cada herramienta es un archivo
 
 Funciona igual en **Linux**, **Windows** y **macOS**.
@@ -80,6 +80,7 @@ Documentación de uso: [`skills/tdn-explorer/SKILL.md`](skills/tdn-explorer/SKIL
 ```text
 resultar-agent-skills/
 ├── .claude-plugin/           · marketplace.json + plugin.json
+├── docs/                     · anuncio de beta para el equipo
 ├── LICENSE.md
 ├── README.md
 └── skills/

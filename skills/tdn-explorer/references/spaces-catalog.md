@@ -4,7 +4,7 @@
 
 La clave del espacio nunca se deduce del nombre: `LR` y `LRM` se llaman los dos "Linha RM", y `PROT` y `mp` difieren en un punto final. Un filtro por nombre devuelve el espacio equivocado.
 
-Para la lista viva usá `tdn spaces`.
+Para la lista viva, usa `tdn spaces`.
 
 ## Los que importan
 

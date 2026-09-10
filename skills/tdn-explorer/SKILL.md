@@ -22,9 +22,9 @@ Si `tdn.mjs` falta o `node -v` falla, la skill todavía no está instalada: las 
 ## Flujo: `search` → `get` → citar
 
 ```bash
-tdn search "DBSeek" -s tec     # 1. buscá; devuelve candidatos con su id
-tdn get 6063453                # 2. leé la página por id o URL
-tdn where 6063453              # 3. si necesitás contexto: camino, hermanos, hijos
+tdn search "DBSeek" -s tec     # 1. busca; devuelve candidatos con su id
+tdn get 6063453                # 2. lee la página por id o URL
+tdn where 6063453              # 3. si se necesita contexto: camino, hermanos, hijos
 ```
 
 `get` con texto libre en vez de id devuelve candidatos para que elijas.
@@ -89,7 +89,7 @@ export TDN_PAT='<token>'     # bash/zsh
 $env:TDN_PAT = '<token>'     # PowerShell
 ```
 
-Agrega sobre todo código de ejemplo descargable. **Con token, los resultados dejan de ser reproducibles entre personas:** cada cuenta ve lo que sus permisos permiten. Antes de pasarle un id a alguien, comprobá con `tdn get <id> --anon` que podrá abrirlo.
+Agrega sobre todo código de ejemplo descargable. **Con token, los resultados dejan de ser reproducibles entre personas:** cada cuenta ve lo que sus permisos permiten. Antes de pasarle un id a alguien, comprueba con `tdn get <id> --anon` que podrá abrirlo.
 
 ## Cuando algo falla
 
@@ -101,5 +101,5 @@ Cada archivo se abre por una rama distinta:
 
 - [`references/cql-syntax.md`](references/cql-syntax.md) — al escribir una consulta: campos, operadores, frases, tipos y filtros que se ignoran en silencio.
 - [`references/spaces-catalog.md`](references/spaces-catalog.md) — al elegir espacio o al buscar por rutina: prefijos por módulo, Puntos de Entrada, espacios vacíos en anónimo.
-- [`references/recetas-protheus.md`](references/recetas-protheus.md) — cuando ya sabés qué buscás y querés la consulta armada: PEs de una rutina, firmas de funciones, Help del sistema, fuentes.
+- [`references/recetas-protheus.md`](references/recetas-protheus.md) — cuando ya se sabe qué buscar y se quiere la consulta armada: PEs de una rutina, firmas de funciones, Help del sistema, fuentes.
 - [`references/busqueda-privada.md`](references/busqueda-privada.md) — al usar `TDN_PAT`: qué agrega y cómo verificar que un id es público.
