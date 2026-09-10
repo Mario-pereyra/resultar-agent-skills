@@ -20,8 +20,8 @@ Salvo autorización previa y por escrito del titular de los derechos, no se perm
 1. **Redistribuir** las herramientas ni sus archivos, total o parcialmente, a
    terceros ajenos a Resultar Soluciones.
 2. **Publicar, ceder, vender, alquilar o sublicenciar** las herramientas.
-3. **Modificar, descompilar, desensamblar o crear obras derivadas**, ni intentar
-   obtener el código fuente a partir de los binarios distribuidos.
+3. **Modificar o crear obras derivadas** a partir de las herramientas, ni
+   reutilizar su código en otro producto.
 4. **Retirar o alterar** este aviso de copyright o cualquier aviso de titularidad.
 
 ## Reserva de derechos

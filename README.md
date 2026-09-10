@@ -2,7 +2,9 @@
 
 Skills para agentes de codificación (**Claude Code, Cursor, Windsurf, Roo Code, Antigravity, Aider** y [75 más](https://github.com/vercel-labs/skills)) orientadas al trabajo diario con **TOTVS Protheus, ADVPL y TLPP**.
 
-Este repositorio es el **canal de distribución** de las herramientas: contiene las instrucciones de uso y los binarios precompilados. No contiene código fuente.
+Este repositorio es el **canal de distribución** de las herramientas: contiene las
+instrucciones de uso y cada herramienta empaquetada como un único archivo, lista
+para usar.
 
 ---
 
@@ -18,10 +20,10 @@ Busca en el **TOTVS Developer Network** y extrae sus páginas como markdown — 
 npx skills add Mario-pereyra/resultar-agent-skills --skill tdn-explorer
 ```
 
-**Primer uso:** la skill descarga su binario automáticamente. Después:
+**Usar:**
 
 ```bash
-.claude/skills/tdn-explorer/bin/tdn spaces
+node .claude/skills/tdn-explorer/tdn.mjs spaces
 ```
 
 Funciona sin credenciales. Opcionalmente, con `TDN_PAT` en el entorno accedés a más código de ejemplo.
@@ -56,20 +58,18 @@ resultar-agent-skills/
 └── skills/
     └── tdn-explorer/
         ├── SKILL.md          · instrucciones de uso
-        ├── bootstrap.mjs     · descarga el binario de la plataforma
+        ├── tdn.mjs           · la herramienta (un archivo, sin dependencias)
         └── references/       · guías de consulta (espacios, CQL, recetas)
 ```
-
-El directorio `bin/` se crea en la primera ejecución y no se versiona.
 
 ---
 
 ## Requisitos
 
-- **Node 18+** para el instalador (`npx skills` y `bootstrap.mjs`)
-- Las herramientas en sí no requieren runtime: los binarios son autónomos
+- **Node 18+** — ya lo tenés si usás Claude Code, Cursor o cualquier agente de codificación
+- Sin dependencias, sin instalación, sin binarios: cada herramienta es un archivo
 
-Plataformas: **Linux x64** · **Windows x64** · **macOS arm64/x64**
+Funciona igual en **Linux**, **Windows** y **macOS**.
 
 ---
 

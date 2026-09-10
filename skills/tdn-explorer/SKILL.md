@@ -15,32 +15,26 @@ Consulta `https://tdn.totvs.com` y devuelve markdown con la fecha de última edi
 npx skills add Mario-pereyra/resultar-agent-skills --skill tdn-explorer
 ```
 
-La primera ejecución descarga el binario de la plataforma. No hace falta Node ni nada más.
+Listo: la herramienta viene incluida y solo necesita Node 18+, que ya tenés si usás
+Claude Code, Cursor o cualquier agente de codificación.
 
 ## Ejecutar
 
 Resuelve `<skill-root>` al directorio de este `SKILL.md`.
 
 ```bash
-<skill-root>/bin/tdn <comando> [args]        # Linux, macOS
-& <skill-root>/bin/tdn.exe <comando> [args]  # Windows
+node <skill-root>/tdn.mjs <comando> [args]
 ```
 
-Sin argumentos imprime la ayuda con todos los flags.
-
-El binario avisa una vez por corrida que usa una función experimental de Node. Es
-ruido, no un problema: silencialo con `NODE_NO_WARNINGS=1` si te molesta en la salida.
-
-```bash
-NODE_NO_WARNINGS=1 <skill-root>/bin/tdn spaces
-```
+Sin argumentos imprime la ayuda con todos los flags. No necesita instalar nada más:
+es un solo archivo sin dependencias. Los ejemplos de esta guía lo abrevian como `tdn`.
 
 ## Flujo: `search` → id → `get`
 
 ```bash
-tdn search "DBSeek" -s tec        # 1. encuentra el id
-tdn get 6063453                   # 2. lee la página
-tdn where 6063453                 # 3. si hace falta, mira qué hay alrededor
+node <skill-root>/tdn.mjs search "DBSeek" -s tec        # 1. encuentra el id
+node <skill-root>/tdn.mjs get 6063453                   # 2. lee la página
+node <skill-root>/tdn.mjs where 6063453                 # 3. si hace falta, mira qué hay alrededor
 ```
 
 `get` acepta un id o una URL. Con texto libre devuelve candidatos para que elijas.
@@ -98,13 +92,13 @@ Escapá las comillas internas siempre que busques una frase.
 ### Recetas
 
 ```bash
-tdn search 'space=tec AND text~"DBSeek"'                   # función del lenguaje
-tdn search 'space=framework AND text~"FWFormModel"'        # clase MVC
-tdn search 'space=PROT AND title~"MATA*"'                  # rutinas por prefijo
-tdn search 'label="advpl" AND space=tec'                   # por etiqueta
-tdn search 'type=attachment AND title~"*.prw"'             # código de ejemplo
-tdn search 'ancestor=334340072'                            # tamaño de una rama
-tdn recent tec --days 7                                    # cambios recientes
+node <skill-root>/tdn.mjs search 'space=tec AND text~"DBSeek"'                   # función del lenguaje
+node <skill-root>/tdn.mjs search 'space=framework AND text~"FWFormModel"'        # clase MVC
+node <skill-root>/tdn.mjs search 'space=PROT AND title~"MATA*"'                  # rutinas por prefijo
+node <skill-root>/tdn.mjs search 'label="advpl" AND space=tec'                   # por etiqueta
+node <skill-root>/tdn.mjs search 'type=attachment AND title~"*.prw"'             # código de ejemplo
+node <skill-root>/tdn.mjs search 'ancestor=334340072'                            # tamaño de una rama
+node <skill-root>/tdn.mjs recent tec --days 7                                    # cambios recientes
 ```
 
 Campos, operadores y ejemplos: [`references/cql-syntax.md`](references/cql-syntax.md).
@@ -114,9 +108,9 @@ Campos, operadores y ejemplos: [`references/cql-syntax.md`](references/cql-synta
 Buena parte de lo que buscás vive en los adjuntos y no en el cuerpo de las páginas — sobre todo el código de ejemplo y los headers con los `#define` reales.
 
 ```bash
-tdn files 758510608                          # qué hay, con su tamaño
-tdn fetch 758510608 --out ./adjuntos         # bajalo
-tdn fetch --ext .prw --space PROT --out ./ejemplos
+node <skill-root>/tdn.mjs files 758510608                          # qué hay, con su tamaño
+node <skill-root>/tdn.mjs fetch 758510608 --out ./adjuntos         # bajalo
+node <skill-root>/tdn.mjs fetch --ext .prw --space PROT --out ./ejemplos
 ```
 
 `fetch` guarda los bytes tal cual y avisa si el tamaño no cuadra con el que declara TDN. **Los fuentes de Protheus vienen en cp1252**, así que la herramienta lo señala: leerlos como UTF-8 destroza los acentos. Si el nombre ya existe en el destino lo renombra, y un adjunto que el servidor no sirve queda declarado sin cancelar el resto del lote.

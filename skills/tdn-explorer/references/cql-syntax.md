@@ -36,7 +36,7 @@ Sin las comillas internas, CQL busca los términos por separado y el resultado s
 `ancestor=` cuenta un subárbol entero con **una** petición, lo que permite saber en qué te metés antes de empezar:
 
 ```bash
-tdn search 'ancestor=334340072 AND type=page'
+node <skill-root>/tdn.mjs search 'ancestor=334340072 AND type=page'
 ```
 
 Es lo que hace `tdn tree` antes de recorrer.
@@ -46,7 +46,7 @@ Es lo que hace `tdn tree` antes de recorrer.
 El máximo por página es **500**: pedir más devuelve 500. El total que reporta la consulta sí es el real, así que sirve para saber si vale la pena paginar.
 
 ```bash
-tdn search 'space=tec AND text~"DBSeek"' --limit 10 --start 20
+node <skill-root>/tdn.mjs search 'space=tec AND text~"DBSeek"' --limit 10 --start 20
 ```
 
 ## Filtros que se ignoran en silencio
@@ -73,14 +73,14 @@ Los títulos traen marcadores de estado que conviene reconocer:
 
 ```bash
 # Todo lo que cuelga de una página, a cualquier profundidad
-tdn search 'ancestor=334340072'
+node <skill-root>/tdn.mjs search 'ancestor=334340072'
 
 # Solo los hijos directos
-tdn search 'parent=334340072'
+node <skill-root>/tdn.mjs search 'parent=334340072'
 
 # Ventana temporal y espacio, ordenado
-tdn search 'space=PROT AND lastmodified >= now("-180d")'
+node <skill-root>/tdn.mjs search 'space=PROT AND lastmodified >= now("-180d")'
 
 # Adjuntos de un tipo dentro de un espacio
-tdn search 'space=PROT AND type=attachment AND title~"*.prw"'
+node <skill-root>/tdn.mjs search 'space=PROT AND type=attachment AND title~"*.prw"'
 ```

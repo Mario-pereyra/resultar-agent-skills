@@ -18,7 +18,7 @@ $env:TDN_PAT = '<token>'          # PowerShell
 Para una invocación puntual en modo anónimo, ignorando el token:
 
 ```bash
-tdn get 6063453 --anon
+node <skill-root>/tdn.mjs get 6063453 --anon
 ```
 
 ## Antes de compartir un id
@@ -28,7 +28,7 @@ tdn get 6063453 --anon
 Comprobalo antes de pasarlo:
 
 ```bash
-tdn get <id> --anon
+node <skill-root>/tdn.mjs get <id> --anon
 ```
 
 Si responde en anónimo, cualquiera podrá abrirlo.

@@ -48,7 +48,7 @@ Los nombres de rutina de Protheus llevan un prefijo por módulo. Buscar por tít
 | `FATA` | Facturación |
 
 ```bash
-tdn search 'space=PROT AND title~"MATA410*"'
+node <skill-root>/tdn.mjs search 'space=PROT AND title~"MATA410*"'
 ```
 
 ## Puntos de Entrada
@@ -56,7 +56,7 @@ tdn search 'space=PROT AND title~"MATA410*"'
 Viven en `PROT`. Es la vía más rápida para encontrar la documentación de un PE:
 
 ```bash
-tdn search 'space=PROT AND title~"Ponto de Entrada" AND title~"MATA410"'
+node <skill-root>/tdn.mjs search 'space=PROT AND title~"Ponto de Entrada" AND title~"MATA410"'
 ```
 
 ## Con credenciales
